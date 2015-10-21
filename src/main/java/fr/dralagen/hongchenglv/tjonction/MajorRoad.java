@@ -4,30 +4,29 @@ import java.util.concurrent.locks.Lock;
 
 public class MajorRoad extends Road {
 
-	public MajorRoad(TrafficLight light, Lock lock) {
-		super(light, lock);
-	}
+    public MajorRoad(TrafficLight light, Lock lock) {
+        super(light, lock);
+    }
 
-	@Override
-	public void run() {
-		while (true) {
-			lock.lock();
-			try {
-				toOpen();
-				System.out.println("major: green");
-				Thread.sleep(500);
-				System.out.println("major: orange");
-				toStop();
-				System.out.println("major: red");
-			} catch (InterruptedException e) {
-			} finally {
-				lock.unlock();
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-				}
-			}
-		}
-	}
+    @Override
+    public void run() {
+        isPower = true;
+        while (isPower) {
+            greenLocker.lock();
+            try {
+                toOpen();
+                Thread.sleep(1000);
+                toStop();
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+            } finally {
+                greenLocker.unlock();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+            }
+        }
+    }
 
 }

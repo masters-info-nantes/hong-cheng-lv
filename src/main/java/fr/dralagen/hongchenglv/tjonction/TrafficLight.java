@@ -2,22 +2,22 @@ package fr.dralagen.hongchenglv.tjonction;
 
 public class TrafficLight {
 
-	public static enum StateLight {
-		GREEN, ORANGE, RED
-	}
+    public static enum StateLight {
+        GREEN, YELLOW, RED
+    }
 
-	private StateLight state;
+    private StateLight state;
 
-	public TrafficLight(StateLight state) {
-		setState(state);
-	}
+    public TrafficLight(StateLight state) {
+        setState(state);
+    }
 
-	public StateLight getState() {
-		return state;
-	}
+    public StateLight getState() {
+        return state;
+    }
 
-	public void setState(StateLight state) {
-		this.state = state;
-	}
+    public void setState(StateLight state) {
+        this.state = state;
+    }
 
 }

@@ -6,31 +6,37 @@ import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
 
 public class Road extends Thread {
 
-	protected TrafficLight trafficLight;
-	protected final Lock lock;
+    protected TrafficLight trafficLight;
+    protected final Lock greenLocker;
 
-	public Road(TrafficLight light, Lock lock) {
-		trafficLight = light;
-		this.lock = lock;
-	}
+    protected boolean isPower;
 
-	public void toStop() {
-		trafficLight.setState(StateLight.ORANGE);
+    public Road(TrafficLight light, Lock lock) {
+        trafficLight = light;
+        greenLocker = lock;
+    }
 
-		try {
-			Thread.sleep(1000);
-		} catch (InterruptedException e) {
-		}
+    public void toStop() {
+        trafficLight.setState(StateLight.YELLOW);
 
-		trafficLight.setState(StateLight.RED);
-	}
+        try {
+            Thread.sleep(1000);
+        } catch (InterruptedException e) {
+        }
 
-	public void toOpen() {
-		trafficLight.setState(StateLight.GREEN);
-	}
+        trafficLight.setState(StateLight.RED);
+    }
 
-	public StateLight getLightState() {
-		return trafficLight.getState();
-	}
+    public void toOpen() {
+        trafficLight.setState(StateLight.GREEN);
+    }
+
+    public StateLight getLightState() {
+        return trafficLight.getState();
+    }
+
+    public void switchOff() {
+        isPower = false;
+    }
 
 }
