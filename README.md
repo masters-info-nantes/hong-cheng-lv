@@ -4,11 +4,17 @@ Deux feux synchronisés mais non temporisés
 ## Questions 1 et 2
 [Feux non synchronisés et non temporisés](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part1/Q2-FeuxNonSynchro.xml)
 
+![Rien](ressources/part1/Q2.png)
+
 ## Question 3
 [Feux synchronisés et non temporisés](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part1/Q3-FeuxSynchro.xml)
 
+![Rien](ressources/part1/Q3.png)
+
 ## Question 4
 [Graphe de marquage](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part1/Q4-GrapheMarquage.txt)
+
+![Rien](ressources/part1/traitement-question4/graphe.png)
 
 ## Question 5
 Vérifications en LTL
@@ -38,6 +44,9 @@ AG[0, inf](M(R1) + M(P7)) # P7 = place intermédiaire
 ## Question 7
 [Feux temporisés sans synchronisation](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part2/Q7-FeuxTemporises.xml)
 
+![Rien](ressources/part2/Q7-1.png)
+![Rien](ressources/part2/Q7-2.png)
+
 **Validations**
 
 - A n'importe quel moment il n'y a pas deux feux rouges en même temps
@@ -55,6 +64,10 @@ E<> deadlock
 
 ## Question 8
 [Un controleur temporisé est synchronisé avec les 2 feux pour changer leurs états](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part2/Q8-ControleurTemporiseEtSynchro.xml)
+
+![Rien](ressources/part2/Q8-1.png)
+![Rien](ressources/part2/Q8-2.png)
+![Rien](ressources/part2/Q8-3.png)
 
 **Validations**
 
@@ -77,6 +90,10 @@ E<> deadlock
 - 2 feux de la grande route considérés comme un seul
 - Processus qui régule l'arrivée des voiture dans la petite rue
 
+![Rien](ressources/part3/Q9-1.png)
+![Rien](ressources/part3/Q9-2.png)
+![Rien](ressources/part3/Q9-3.png)
+
 ## Question 10
 [Avec contraintes de temps](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part3/Q10-AvecContraintesTemps.xml)
 
@@ -84,6 +101,10 @@ E<> deadlock
 - Dans un cycle, grande route verte au moins 30 secondes
 - Delai de 1 seconde entre chaque changement de couleur
 - Reste orange pendant 5 secondes
+
+![Rien](ressources/part3/Q10-1.png)
+![Rien](ressources/part3/Q10-2.png)
+![Rien](ressources/part3/Q10-3.png)
 
 ## Question 11
 
