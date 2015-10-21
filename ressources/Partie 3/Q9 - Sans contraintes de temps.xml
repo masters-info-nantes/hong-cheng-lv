@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
+<nta>
+	<declaration>// Place global declarations here.
+broadcast chan p,r2;
+chan r1;</declaration>
+	<template>
+		<name x="5" y="5">P1</name>
+		<declaration>// Place local declarations here.</declaration>
+		<location id="id0" x="-170" y="-34">
+			<name x="-180" y="-68">O1</name>
+		</location>
+		<location id="id1" x="-34" y="-34">
+			<name x="-44" y="-68">V1</name>
+		</location>
+		<location id="id2" x="-102" y="-102">
+			<name x="-112" y="-136">R1</name>
+		</location>
+		<init ref="id1"/>
+		<transition>
+			<source ref="id0"/>
+			<target ref="id2"/>
+			<label kind="synchronisation" x="-152" y="-85">r1!</label>
+		</transition>
+		<transition>
+			<source ref="id1"/>
+			<target ref="id0"/>
+			<label kind="synchronisation" x="-110" y="-59">p?</label>
+		</transition>
+		<transition>
+			<source ref="id2"/>
+			<target ref="id1"/>
+			<label kind="synchronisation" x="-84" y="-85">r2?</label>
+		</transition>
+	</template>
+	<template>
+		<name>P2</name>
+		<location id="id3" x="34" y="34">
+		</location>
+		<location id="id4" x="-136" y="102">
+			<name x="-146" y="68">O2</name>
+		</location>
+		<location id="id5" x="102" y="102">
+			<name x="92" y="68">V2</name>
+		</location>
+		<location id="id6" x="-34" y="-34">
+			<name x="-44" y="-68">R2</name>
+		</location>
+		<init ref="id6"/>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id5"/>
+			<label kind="synchronisation" x="52" y="51">r1?</label>
+		</transition>
+		<transition>
+			<source ref="id4"/>
+			<target ref="id6"/>
+			<label kind="synchronisation" x="-85" y="25">r2!</label>
+		</transition>
+		<transition>
+			<source ref="id5"/>
+			<target ref="id4"/>
+		</transition>
+		<transition>
+			<source ref="id6"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="8" y="-17">p?</label>
+		</transition>
+	</template>
+	<template>
+		<name>C</name>
+		<location id="id7" x="-136" y="-34">
+			<name x="-146" y="-68">Plein</name>
+		</location>
+		<location id="id8" x="-136" y="-136">
+			<name x="-146" y="-170">Vide</name>
+		</location>
+		<init ref="id8"/>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-132" y="-5">p!</label>
+			<nail x="-161" y="-17"/>
+			<nail x="-144" y="8"/>
+			<nail x="-110" y="-8"/>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-186" y="-127">p!</label>
+			<nail x="-204" y="-85"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id8"/>
+			<label kind="synchronisation" x="-85" y="-119">r2?</label>
+			<nail x="-68" y="-85"/>
+		</transition>
+	</template>
+	<system>// Place template instantiations here.
+Major = P1();
+Minor = P2();
+Car = C();
+// List one or more processes to be composed into a system.
+system Major,Minor,Car;
+    </system>
+	<queries>
+	</queries>
+</nta>
