@@ -112,5 +112,11 @@ system feu1,feu2;
 			<comment>
 			</comment>
 		</query>
+		<query>
+			<formula>E&lt;&gt;(feu1.V1 and feu2.V2)
+			</formula>
+			<comment>
+			</comment>
+		</query>
 	</queries>
 </nta>

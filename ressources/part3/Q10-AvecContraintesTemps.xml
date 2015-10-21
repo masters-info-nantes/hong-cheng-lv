@@ -10,6 +10,7 @@ chan r1;</declaration>
 clock t1;</declaration>
 		<location id="id0" x="-127" y="34">
 			<name x="-137" y="0">V1p</name>
+			<label kind="invariant" x="-144" y="68">t1&lt;=30</label>
 		</location>
 		<location id="id1" x="-246" y="34">
 			<name x="-256" y="0">O1</name>
@@ -27,6 +28,7 @@ clock t1;</declaration>
 			<source ref="id2"/>
 			<target ref="id0"/>
 			<label kind="synchronisation" x="-85" y="8">p?</label>
+			<label kind="assignment" x="-109" y="34">t1:=0</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
@@ -55,6 +57,7 @@ clock t1;</declaration>
 		<declaration>clock t2;</declaration>
 		<location id="id4" x="34" y="34">
 			<name x="24" y="0">R2p</name>
+			<label kind="invariant" x="-17" y="42">t2&lt;=35</label>
 		</location>
 		<location id="id5" x="-136" y="102">
 			<name x="-146" y="68">O2</name>
@@ -73,13 +76,13 @@ clock t1;</declaration>
 			<target ref="id6"/>
 			<label kind="guard" x="68" y="34">t2&gt;=35</label>
 			<label kind="synchronisation" x="85" y="51">r1?</label>
-			<label kind="assignment" x="119" y="51">t2:=0</label>
+			<label kind="assignment" x="113" y="52">t2:=0</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
 			<target ref="id7"/>
 			<label kind="guard" x="-118" y="0">t2==5</label>
-			<label kind="synchronisation" x="-76" y="25">r2!</label>
+			<label kind="synchronisation" x="-114" y="17">r2!</label>
 		</transition>
 		<transition>
 			<source ref="id6"/>
@@ -90,7 +93,8 @@ clock t1;</declaration>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id4"/>
-			<label kind="synchronisation" x="8" y="-17">p?</label>
+			<label kind="synchronisation" x="6" y="-33">p?</label>
+			<label kind="assignment" x="5" y="-16">t2:=0</label>
 		</transition>
 	</template>
 	<template>
@@ -124,5 +128,11 @@ Car = C();
 system Major, Minor, Car;
     </system>
 	<queries>
+		<query>
+			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p)
+			</formula>
+			<comment>
+			</comment>
+		</query>
 	</queries>
 </nta>

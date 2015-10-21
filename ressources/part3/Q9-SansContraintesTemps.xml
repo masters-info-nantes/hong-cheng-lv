@@ -30,12 +30,13 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="-84" y="-85">r2?</label>
+			<label kind="synchronisation" x="-77" y="-90">r2?</label>
 		</transition>
 	</template>
 	<template>
 		<name>P2</name>
 		<location id="id3" x="34" y="34">
+			<name x="24" y="0">R2p</name>
 		</location>
 		<location id="id4" x="-136" y="102">
 			<name x="-146" y="68">O2</name>
@@ -50,12 +51,12 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id5"/>
-			<label kind="synchronisation" x="52" y="51">r1?</label>
+			<label kind="synchronisation" x="63" y="38">r1?</label>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id6"/>
-			<label kind="synchronisation" x="-85" y="25">r2!</label>
+			<label kind="synchronisation" x="-109" y="17">r2!</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
@@ -64,7 +65,7 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id6"/>
 			<target ref="id3"/>
-			<label kind="synchronisation" x="8" y="-17">p?</label>
+			<label kind="synchronisation" x="-1" y="-29">p?</label>
 		</transition>
 	</template>
 	<template>
@@ -76,14 +77,6 @@ chan r1;</declaration>
 			<name x="-146" y="-170">Vide</name>
 		</location>
 		<init ref="id8"/>
-		<transition>
-			<source ref="id7"/>
-			<target ref="id7"/>
-			<label kind="synchronisation" x="-132" y="-5">p!</label>
-			<nail x="-161" y="-17"/>
-			<nail x="-144" y="8"/>
-			<nail x="-110" y="-8"/>
-		</transition>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id7"/>
@@ -105,5 +98,17 @@ Car = C();
 system Major,Minor,Car;
     </system>
 	<queries>
+		<query>
+			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p)
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt;deadlock
+			</formula>
+			<comment>
+			</comment>
+		</query>
 	</queries>
 </nta>

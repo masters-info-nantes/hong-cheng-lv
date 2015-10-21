@@ -10,7 +10,7 @@ clock t;</declaration>
 		<location id="id0" x="-102" y="-34">
 		</location>
 		<location id="id1" x="-136" y="0">
-			<name x="-146" y="-34">O1</name>
+			<name x="-144" y="-32">O1</name>
 		</location>
 		<location id="id2" x="-68" y="-68">
 			<name x="-78" y="-102">R1</name>
@@ -22,7 +22,7 @@ clock t;</declaration>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id2"/>
-			<label kind="synchronisation" x="-126" y="-85">r1!</label>
+			<label kind="synchronisation" x="-111" y="-75">r1!</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
@@ -32,7 +32,7 @@ clock t;</declaration>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="-118" y="-17">o?</label>
+			<label kind="synchronisation" x="-77" y="-19">o?</label>
 		</transition>
 		<transition>
 			<source ref="id2"/>
@@ -96,27 +96,27 @@ clock t;</declaration>
 			<label kind="invariant" x="-180" y="17">t&lt;=2</label>
 		</location>
 		<location id="id12" x="136" y="0">
-			<name x="126" y="-34">TV</name>
+			<name x="133" y="-33">TV</name>
 			<label kind="invariant" x="126" y="17">t&lt;=5</label>
 		</location>
 		<init ref="id12"/>
 		<transition>
 			<source ref="id9"/>
 			<target ref="id12"/>
-			<label kind="synchronisation" x="119" y="-68">cv2!</label>
-			<label kind="assignment" x="119" y="-51">t:=0</label>
+			<label kind="synchronisation" x="129" y="-66">cv2!</label>
+			<label kind="assignment" x="129" y="-52">t:=0</label>
 		</transition>
 		<transition>
 			<source ref="id8"/>
 			<target ref="id12"/>
-			<label kind="synchronisation" x="51" y="-42">cv1!</label>
-			<label kind="assignment" x="52" y="-34">t:=0</label>
+			<label kind="synchronisation" x="58" y="-43">cv1!</label>
+			<label kind="assignment" x="59" y="-29">t:=0</label>
 		</transition>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id8"/>
 			<label kind="guard" x="-25" y="-119">t==9</label>
-			<label kind="synchronisation" x="17" y="-136">r2?</label>
+			<label kind="synchronisation" x="20" y="-132">r2?</label>
 			<label kind="assignment" x="-25" y="-102">t:=0</label>
 		</transition>
 		<transition>
@@ -137,7 +137,7 @@ clock t;</declaration>
 			<source ref="id12"/>
 			<target ref="id11"/>
 			<label kind="guard" x="-34" y="-17">t==5</label>
-			<label kind="synchronisation" x="-59" y="-34">o!</label>
+			<label kind="synchronisation" x="-37" y="-32">o!</label>
 			<label kind="assignment" x="-25" y="0">t:=0</label>
 		</transition>
 	</template>
