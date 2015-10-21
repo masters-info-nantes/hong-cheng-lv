@@ -8,9 +8,6 @@ public class TrafficLight {
 
 	private StateLight state;
 
-	/**
-	 * @param state
-	 */
 	public TrafficLight(StateLight state) {
 		setState(state);
 	}
