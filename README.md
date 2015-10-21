@@ -1,7 +1,7 @@
 # Partie 1 - Deux feux synchronisés
 Deux feux synchronisés mais non temporisés
 
-## Question 1 et 2
+## Questions 1 et 2
 [Feux non synchronisés et non temporisés](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/Partie%201/Q2%20-%20Feux%20non%20synchronises.xml)
 
 ## Question 3
@@ -57,6 +57,18 @@ E<> deadlock
 [Un controleur temporisé est synchronisé avec les 2 feux pour changer leurs états](https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/Partie%202/Q8%20-%20Controleur%20temporise%20et%20synchronise.xml)
 
 **Vérifications**
+
+- A n'importe quel moment il n'y a pas deux feux rouges en même temps
+
+```
+A[](feu1.R1 or feu2.R2)
+```
+
+- Pas de deadlock
+
+```
+E<> deadlock
+```
 
 # Partie 3 - Carrefour en T
 ## Question 9

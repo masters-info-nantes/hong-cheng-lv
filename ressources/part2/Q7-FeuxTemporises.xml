@@ -8,6 +8,7 @@
 		<declaration>// Place local declarations here.
 clock t;</declaration>
 		<location id="id0" x="85" y="0">
+			<name x="75" y="-34">I1</name>
 			<label kind="invariant" x="75" y="17">t&lt;=1</label>
 		</location>
 		<location id="id1" x="-136" y="0">
@@ -52,6 +53,7 @@ clock t;</declaration>
 		<name>P1</name>
 		<declaration>clock s;</declaration>
 		<location id="id4" x="59" y="-51">
+			<name x="49" y="-85">I2</name>
 			<label kind="invariant" x="49" y="-34">s&lt;=1</label>
 		</location>
 		<location id="id5" x="-68" y="68">
@@ -105,7 +107,7 @@ system feu1,feu2;
 			</comment>
 		</query>
 		<query>
-			<formula>A[](feu1.t&gt;=1) (feu1.R1 or feu2.R2)
+			<formula>A[] (feu1.R1 or feu2.R2 or feu1.I1 or feu2.I2)
 			</formula>
 			<comment>
 			</comment>
