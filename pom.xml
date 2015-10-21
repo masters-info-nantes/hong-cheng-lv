@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>fr.dralagen</groupId>
+		<artifactId>pom</artifactId>
+		<version>1.1.0</version>
+	</parent>
+
+	<groupId>hong-cheng-lv_T-jonction</groupId>
+	<artifactId>hong-cheng-lv_T-jonction</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>Hong Cheng lv</name>
+	<description>Simulate a T-Jonction traffic lights</description>
+
+	<properties>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
+</project>
+
