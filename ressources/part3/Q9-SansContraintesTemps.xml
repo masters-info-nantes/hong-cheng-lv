@@ -2,8 +2,7 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>// Place global declarations here.
-broadcast chan p,r2;
-chan r1;</declaration>
+chan car1,car2,r1,r2;</declaration>
 	<template>
 		<name x="5" y="5">P1</name>
 		<declaration>// Place local declarations here.</declaration>
@@ -20,17 +19,17 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id0"/>
 			<target ref="id2"/>
-			<label kind="synchronisation" x="-152" y="-85">r1!</label>
+			<label kind="synchronisation" x="-155" y="-86">r1!</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
 			<target ref="id0"/>
-			<label kind="synchronisation" x="-110" y="-59">p?</label>
+			<label kind="synchronisation" x="-115" y="-57">car1?</label>
 		</transition>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="-77" y="-90">r2?</label>
+			<label kind="synchronisation" x="-70" y="-92">r2?</label>
 		</transition>
 	</template>
 	<template>
@@ -51,12 +50,12 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id5"/>
-			<label kind="synchronisation" x="63" y="38">r1?</label>
+			<label kind="synchronisation" x="66" y="43">r1?</label>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id6"/>
-			<label kind="synchronisation" x="-109" y="17">r2!</label>
+			<label kind="synchronisation" x="-104" y="16">r2!</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
@@ -65,28 +64,37 @@ chan r1;</declaration>
 		<transition>
 			<source ref="id6"/>
 			<target ref="id3"/>
-			<label kind="synchronisation" x="-1" y="-29">p?</label>
+			<label kind="synchronisation" x="-3" y="-26">car2?</label>
 		</transition>
 	</template>
 	<template>
 		<name>C</name>
-		<location id="id7" x="-136" y="-34">
-			<name x="-146" y="-68">Plein</name>
+		<declaration>clock t;</declaration>
+		<location id="id7" x="-204" y="-85">
+			<label kind="invariant" x="-263" y="-93">t&lt;=0</label>
 		</location>
-		<location id="id8" x="-136" y="-136">
+		<location id="id8" x="-136" y="-34">
+			<name x="-146" y="-68">Plein</name>
+			<label kind="invariant" x="-146" y="-17">t&gt;=50</label>
+		</location>
+		<location id="id9" x="-136" y="-136">
 			<name x="-146" y="-170">Vide</name>
 		</location>
-		<init ref="id8"/>
-		<transition>
-			<source ref="id8"/>
-			<target ref="id7"/>
-			<label kind="synchronisation" x="-186" y="-127">p!</label>
-			<nail x="-204" y="-85"/>
-		</transition>
+		<init ref="id9"/>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-85" y="-119">r2?</label>
+			<label kind="synchronisation" x="-212" y="-59">car2!</label>
+		</transition>
+		<transition>
+			<source ref="id9"/>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-200" y="-145">car1!</label>
+			<label kind="assignment" x="-199" y="-131">t:=0</label>
+		</transition>
+		<transition>
+			<source ref="id8"/>
+			<target ref="id9"/>
 			<nail x="-68" y="-85"/>
 		</transition>
 	</template>

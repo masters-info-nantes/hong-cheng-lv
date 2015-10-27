@@ -54,7 +54,6 @@ AG[0, inf](M(R1) + M(P7)) # P7 = place intermédiaire
 ```
 A[](feu1.R1 or feu2.R2 or feu1.I1 or feu2.I2)
 ```
-
 - Pas de deadlock
 
 ```
@@ -75,6 +74,12 @@ E<> deadlock
 
 ```
 A[](feu1.R1 or feu2.R2)
+```
+
+- ?????????
+
+```
+E<>(feu1.R1 and feu2.O2)
 ```
 
 - Pas de deadlock
