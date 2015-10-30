@@ -17,6 +17,14 @@ public class Tjonction extends Thread {
         majorRoad = new MajorRoad(new TrafficLight(StateLight.RED), lock);
 
     }
+    
+    public MinorRoad getMinor(){
+    	return minorRoad;
+    }
+    
+    public MajorRoad getMajor(){
+    	return majorRoad;
+    }
 
     @Override
     public void run() {
@@ -39,7 +47,7 @@ public class Tjonction extends Thread {
         majorRoad.switchOff();
     }
 
-    public static void main(String[] args) {
+   /* public static void main(String[] args) {
 
         Tjonction crossing = new Tjonction();
         crossing.start();
@@ -54,5 +62,5 @@ public class Tjonction extends Thread {
         }
 
         crossing.quit();
-    }
+    }*/
 }
