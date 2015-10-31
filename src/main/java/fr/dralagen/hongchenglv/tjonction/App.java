@@ -17,9 +17,12 @@ public class App extends JFrame {
     public App() {
         super("Hong cheng lv");
 
+        final Tjonction crossing = new Tjonction();
+
         WindowListener l = new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                crossing.quit();
                 System.exit(0);
             }
         };
@@ -28,8 +31,6 @@ public class App extends JFrame {
         setSize(430, 750);
         setVisible(true);
         // setResizable(false);
-
-        Tjonction crossing = new Tjonction();
 
         Button startStop = new Button("Stop");
         startStop.addActionListener(new ActionListener() {
@@ -40,10 +41,10 @@ public class App extends JFrame {
                 if (startStop.getLabel().equals("Stop")) {
                     startStop.setLabel("Start");
                     crossing.quit();
+
                 } else {
                     startStop.setLabel("Stop");
                 }
-
             }
         });
 

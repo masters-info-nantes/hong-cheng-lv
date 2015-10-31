@@ -17,13 +17,13 @@ public class Tjonction extends Thread {
         majorRoad = new MajorRoad(new TrafficLight(StateLight.RED), lock);
 
     }
-    
-    public MinorRoad getMinor(){
-    	return minorRoad;
+
+    public MinorRoad getMinor() {
+        return minorRoad;
     }
-    
-    public MajorRoad getMajor(){
-    	return majorRoad;
+
+    public MajorRoad getMajor() {
+        return majorRoad;
     }
 
     @Override
@@ -34,33 +34,9 @@ public class Tjonction extends Thread {
         majorRoad.start();
     }
 
-    public void printState() {
-        System.out.println("-------------------");
-        System.out.println("major : " + majorRoad.getLightState());
-        System.out.println("minor : " + minorRoad.getLightState());
-        System.out.println("-------------------");
-
-    }
-
     public void quit() {
         minorRoad.switchOff();
         majorRoad.switchOff();
     }
 
-   /* public static void main(String[] args) {
-
-        Tjonction crossing = new Tjonction();
-        crossing.start();
-
-        for (int i = 0; i < 100; i++) {
-            crossing.printState();
-            try {
-                Thread.sleep(500);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-
-        crossing.quit();
-    }*/
 }

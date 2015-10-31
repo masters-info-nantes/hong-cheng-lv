@@ -2,7 +2,7 @@ package fr.dralagen.hongchenglv.tjonction;
 
 import java.util.concurrent.locks.Lock;
 
-import javax.swing.ImageIcon;
+import javax.swing.Icon;
 import javax.swing.JLabel;
 
 import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
@@ -20,8 +20,7 @@ public class Road extends Thread {
     public Road(TrafficLight light, Lock lock) {
         trafficLight = light;
         greenLocker = lock;
-        ImageIcon img = new ImageIcon(
-                getClass().getResource("/img/feux-feuvert.gif"));
+        Icon img = trafficLight.getIcon();
         feu1 = new JLabel();
         feu1.setIcon(img);
         feu1.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
@@ -34,10 +33,8 @@ public class Road extends Thread {
 
     public void toStop() {
         trafficLight.setState(StateLight.YELLOW);
-        ImageIcon img = new ImageIcon(
-                getClass().getResource("/img/feux-feuorange.gif"));
-        feu1.setIcon(img);
-        feu2.setIcon(img);
+        feu1.setIcon(trafficLight.getIcon());
+        feu2.setIcon(trafficLight.getIcon());
 
         try {
             Thread.sleep(1000);
@@ -45,18 +42,15 @@ public class Road extends Thread {
         }
 
         trafficLight.setState(StateLight.RED);
-        img = new ImageIcon(getClass().getResource("/img/feux-feurouge.gif"));
-        feu1.setIcon(img);
-        feu2.setIcon(img);
+        feu1.setIcon(trafficLight.getIcon());
+        feu2.setIcon(trafficLight.getIcon());
 
     }
 
     public void toOpen() {
         trafficLight.setState(StateLight.GREEN);
-        ImageIcon img = new ImageIcon(
-                getClass().getResource("/img/feux-feuvert.gif"));
-        feu1.setIcon(img);
-        feu2.setIcon(img);
+        feu1.setIcon(trafficLight.getIcon());
+        feu2.setIcon(trafficLight.getIcon());
 
     }
 
