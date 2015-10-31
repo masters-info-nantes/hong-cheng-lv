@@ -1801,6 +1801,17 @@
           value="false"/>
     </setupTask>
   </setupTask>
+  <setupTask
+      xsi:type="setup:EclipseIniTask"
+      option="-Doomph.redirect.hong.cheng.lv="
+      value="https://raw.githubusercontent.com/masters-info-nantes/hong-cheng-lv/master/HongChengLv.setup->${git.clone.hong.cheng.lv.location}/HongChengLv.setup"
+      vm="true">
+    <description></description>
+  </setupTask>
+  <setupTask
+      xsi:type="setup:VariableTask"
+      name="git.clone.hong.cheng.lv.location"
+      value="${git.clone.location}"/>
   <stream name="master"
       label="Master"/>
   <logicalProjectContainer
