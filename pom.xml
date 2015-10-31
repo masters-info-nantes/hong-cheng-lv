@@ -15,7 +15,7 @@
 	<description>Simulate a T-Jonction traffic lights</description>
 
 	<properties>
-	    <java.mainClass>fr.dralagen.hongchenglv.tjonction.Tjonction</java.mainClass>
+		<java.mainClass>fr.dralagen.hongchenglv.tjonction.App</java.mainClass>
 		<java.version>1.8</java.version>
 	</properties>
 
@@ -26,6 +26,28 @@
 			</plugin>
 			<plugin>
 				<artifactId>maven-jar-plugin</artifactId>
+			</plugin>
+			<plugin>
+				<artifactId>maven-resources-plugin</artifactId>
+<!-- 				<executions>
+          <execution>
+            <id>copy-resources</id>
+            here the phase you need
+            <phase>validate</phase>
+            <goals>
+              <goal>copy-resources</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${build.directory}/resources</outputDirectory>
+              <resources>          
+                <resource>
+                  <directory>src/main/resources</directory>
+                  <filtering>true</filtering>
+                </resource>
+              </resources>              
+            </configuration>            
+          </execution>
+        </executions> -->
 			</plugin>
 		</plugins>
 	</build>
