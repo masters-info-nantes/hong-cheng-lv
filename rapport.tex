@@ -32,19 +32,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Partie 1 - Deux feux synchronisés}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Deux feux synchronisés mais non temporises
+Dans cette partie, on s'intéresse à la synchronisation de deux feux tricolores. On utile pour cela des réseaux de Pétri et le logiciel Roméo.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Questions 1 et 2}
 %%%%%%%%%%%%%%%%%%%%%%%
-
-\href{https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part1/Q2-FeuxNonSynchro.xml}{Feux non synchronisés et non temporises}
+Feux non synchronisés et non temporises
 
 \begin{figure}[H]
 	\centering
 	\includegraphics[width=1\textwidth]{ressources/part1/Q2.png}
 	\caption{Réseau de Pétri, feux non synchronisés}
 \end{figure}
+
+Chaque feu est identique et dispose de trois places suivant les trois couleurs qu'un feu de circulation tricolore peut prendre: Rouge, Orange et Vert.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 3}
@@ -59,11 +60,15 @@ synchronisés et non temporises}
 	\caption{Réseau de Pétri, feux synchronisés}
 \end{figure}
 
+Dans le cas réel, les feux de circulation sont synchronisés. En effet, lorsqu'un premier feu est Vert, le second est Rouge. Puis le premier feu passe alternativement au Orange puis au Rouge tandis qu'ensuite le second feu devient Vert.
+
+Pour respecter ce cahier des charges, nous avons ajouté deux places entre les deux feux. Alors, lorsqu'un feu devient Vert, il empêche l'autre de devenir Vert puis le libère une fois qu'il est passé à l'Orange puis au Rouge.
+ 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 4}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\href{https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part1/Q4-GrapheMarquage.txt}{Graphe de marquage}
+Un graphe de marquage permet de montrer les différentes executions possibles de notre système de réseaux de Pétri.
 
 \begin{figure}[H]
 	\centering
@@ -71,20 +76,15 @@ synchronisés et non temporises}
 	\caption{Graphe de marquage des feux synchronisés}
 \end{figure}
 
-%%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Question 5}
-%%%%%%%%%%%%%%%%%%%%%%%
-Vérifications en LTL
+On constate que l'execution de notre système est linéaire. Cela signifie qu'il existe une seule execution, ainsi prouver que celle-ci est correcte revient à prouver que le système entier est correct.
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Question 6}
+\subsection{Question 5 et 6}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-%%%%%%%%%%%
-\subsubsection{Vérifications}
-%%%%%%%%%%%
+Vérification des propriétés de sureté de vivacité du système de feux synchronisés.
 
-\textbf{Pas de 2 feux rouges en même temps (sureté)}
+\textbf{Pas 2 feux rouges en même temps (sureté)}
 \begin{verbatim}
 AG[0, inf](M(R1) + M(R2) >= 1)	
 \end{verbatim}
@@ -102,6 +102,7 @@ AG[0, inf](M(R1) + M(P7)) # P7 = place intermédiaire
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Partie 2 - Deux feux temporises}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+La partie précédente expose un système de feux synchronisés mais non temporises. En effet, ans la réalité les feux restent temps donné dans leurs états. Nous proposons alors un système de feux temporises sous la forme d'automates à états finis modélisés avec le logiciel Uppaal.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 7}
@@ -121,16 +122,16 @@ AG[0, inf](M(R1) + M(P7)) # P7 = place intermédiaire
 	\caption{Automate du feu commençant en Rouge}
 \end{figure}
 
-%%%%%%%%%%%
-\subsubsection{Validations}
-%%%%%%%%%%%
+Pour les deux feux, il est nécessaire d'ajouter une place initiale pour indiquer l'état initial de chacun des feux. Ce premier état attend 1 seconde car sinon les automates on observerait une désynchronisation des feux.
+
+Validation des propriétés de sureté de vivacité du système de feux temporises.
 
 \textbf{A n'importe quel moment il n'y a pas deux feux rouges en même temps}
 \begin{verbatim}
 A[](feu1.R1 or feu2.R2 or feu1.I1 or feu2.I2)
 \end{verbatim}
 
-\textbf{Pas de deadlock}
+\textbf{Pas de blocage}
 \begin{verbatim}
 E<> deadlock
 \end{verbatim}
@@ -139,8 +140,7 @@ E<> deadlock
 \subsection{Question 8}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\href{https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part2/Q8-ControleurTemporiseEtSynchro.xml}{Un controleur temporisé est synchronisé avec les 2 feux pour changer leurs
-états}
+Afin de controller au mieux le système, cette solution propose l'utilisation d'un controleur. Cet élément est chargé de faire évoluer les états des feux. 
 
 \begin{figure}[H]
 	\centering
@@ -160,9 +160,11 @@ E<> deadlock
 	\caption{Contrôleur des feux}
 \end{figure}
 
-%%%%%%%%%%%
-\subsubsection{Validations}
-%%%%%%%%%%%
+Les feux ne sont pas temporises mais il a y toujours un feu Rouge et un feu Vert au démarrage du système. En effet, c'est le rôle du contrôleur qui temporise et commande les feux à travers une synchronisation par signaux. 
+
+Le contrôleur allume alors alternativement le premier et le second feu tout en prenant en compte le temps pendant lequel un feu doit rester dans un état donné.
+
+Vérification des propriétés de sureté de vivacité du système de feux synchronisés.
 
 \textbf{A n'importe quel moment il n'y a pas deux feux rouges en même temps}
 \begin{verbatim}
@@ -182,16 +184,19 @@ E<> deadlock
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{Partie 3 - Carrefour en T}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Après avoir étudier des systèmes représentant la synchronisation de deux de circulation sur une route, nous allons nous intéresser à un carrefour en T.
+
+Comme dans le premier cas, il y a une route principale avec deux feux tricolores. On ajoute ici une route mineure sur le côté. Dans un cas normal, le feux de la route mineure est Rouge mais lorsque des voitures sont captés il passe au Vert.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 9}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\href{https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part3/Q9-SansContraintesTemps.xml}{Sans contraintes de temps}
+Dans cette première version de notre système de feux, il n'y a pas de contraintes de temps.
 
 \begin{itemize}
-	\item 2 feux de la grande route considérés comme un seul
-	\item Processus qui régule l'arrivée des voiture dans la petite rue
+	\item Les 2 feux de la grande route sont considérés comme un seul
+	\item Processus qui régule l'arrivée des voitures dans la petite rue
 \end{itemize}
 
 \begin{figure}[H]
@@ -200,11 +205,15 @@ E<> deadlock
 	\caption{Automate du feu de la route majeure}
 \end{figure}
 
+Le feu de la route principale passe du Vert au Orange puis au Rouge lorsqu'un véhicule arrive sur la route mineure. Il attend alors qu'il n'y ai plus de voiture sur la route mineure pour repasser au Vert.
+
 \begin{figure}[H]
 	\centering
 	\includegraphics{ressources/part3/Q9-2.png}
 	\caption{Automate du feu de la route mineure}
 \end{figure}
+
+Par défaut Rouge, le feu de la route mineure passe au Vert si une voiture est capté et une fois que les feux de la route principale sont Rouges.
 
 \begin{figure}[H]
 	\centering
@@ -212,17 +221,19 @@ E<> deadlock
 	\caption{Automate de l'arrivée des véhicules sur la route mineure (capteur)}
 \end{figure}
 
+Cet automate régule l'arrivée de voiture sur la route mineure. Il détecte alors une voiture toutes les 50 tocs d'horloges.
+
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 10}\label{question-10}
 %%%%%%%%%%%%%%%%%%%%%%%
 
-\href{https://github.com/masters-info-nantes/hong-cheng-lv/blob/master/ressources/part3/Q10-AvecContraintesTemps.xml}{Avec contraintes de temps}
+A notre système de feux sur un carrefour en T, nous ajoutons ici des contraintes de temps notamment sur le temps pendant lequel chaque feu doit rester Vert.
 
 \begin{itemize}
 	\item Petite rue verte 30 secondes
-	\item Dans un cycle, grande route verte au moins 30 secondes
+	\item Dans un cycle, la grande route est Verte au moins 30 secondes
 	\item Delai de 1 seconde entre chaque changement de couleur
-	\item Reste orange pendant 5 secondes
+	\item Chaque feu reste orange pendant 5 secondes
 \end{itemize}
 
 \begin{figure}[H]
@@ -262,7 +273,7 @@ E<> deadlock
 \end{verbatim}
 
 %%%%%%%%%%%
-\subdubsection{Validations question 10}
+\subsubsection{Validations question 10}
 %%%%%%%%%%%
 
 \textbf{A n'importe quel moment il n'y a pas deux feux rouges en même temps}
