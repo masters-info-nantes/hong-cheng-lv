@@ -1,9 +1,11 @@
 package fr.dralagen.hongchenglv.tjonction;
 
+import java.util.Observable;
+
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
-public class TrafficLight {
+public class TrafficLight extends Observable {
 
     public static enum StateLight {
         GREEN {
@@ -42,6 +44,9 @@ public class TrafficLight {
 
     public void setState(StateLight state) {
         this.state = state;
+
+        setChanged();
+        notifyObservers(state);
     }
 
     public Icon getIcon() {

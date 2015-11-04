@@ -4,8 +4,8 @@ import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
 
 public class Tjonction extends Thread {
 
-    private MinorRoad minorRoad;
-    private MajorRoad majorRoad;
+    private Road minorRoad;
+    private Road majorRoad;
 
     private CarPresentThread tjonction;
 
@@ -13,16 +13,16 @@ public class Tjonction extends Thread {
 
         tjonction = new CarPresentThread();
 
-        majorRoad = new MajorRoad(new TrafficLight(StateLight.RED));
-        minorRoad = new MinorRoad(new TrafficLight(StateLight.RED));
+        majorRoad = new Road(new TrafficLight(StateLight.RED));
+        minorRoad = new Road(new TrafficLight(StateLight.RED));
 
     }
 
-    public MinorRoad getMinor() {
+    public Road getMinor() {
         return minorRoad;
     }
 
-    public MajorRoad getMajor() {
+    public Road getMajor() {
         return majorRoad;
     }
 

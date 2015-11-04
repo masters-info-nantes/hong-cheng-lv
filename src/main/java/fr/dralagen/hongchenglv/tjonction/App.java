@@ -7,20 +7,35 @@ import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.Observable;
+import java.util.Observer;
 
+import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
+
 public class App extends JFrame {
+
+    private static final long serialVersionUID = -436158930693626346L;
 
     private static final String LABEL_CAR_PRESENT = "Have car present";
     private static final String LABEL_NO_CAR_PRESENT = "No car present";
 
+    private Tjonction crossing;
+
+    private JLightIcon majorFeuTop;
+
+    private JLightIcon minorFeu;
+
+    private JLightIcon majorFeuDown;
+
     public App() {
         super("Hong cheng lv");
 
-        final Tjonction crossing = new Tjonction();
+        crossing = new Tjonction();
 
         WindowListener l = new WindowAdapter() {
             @Override
@@ -79,19 +94,29 @@ public class App extends JFrame {
         labMinorRoute.setBounds(0, labMajorRouteTop.getHeight(),
                 minorRoute.getIconWidth(), minorRoute.getIconHeight());
 
-        JLabel MinorFeu = crossing.getMinor().getFeu();
-        add(MinorFeu);
-        MinorFeu.setLocation(
-                labMinorRoute.getX() + labMinorRoute.getWidth()
-                        - MinorFeu.getWidth(),
-                labMinorRoute.getY() + labMinorRoute.getHeight());
+        Icon img = crossing.getMinor().getLightState().getIcon();
 
-        JLabel MajorFeuTop = crossing.getMajor().getFeu1();
-        add(MajorFeuTop);
-        MajorFeuTop.setLocation(
-                labMajorRouteTop.getX() - MajorFeuTop.getWidth(),
+        minorFeu = new JLightIcon();
+        minorFeu.setIcon(img);
+        minorFeu.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        add(minorFeu);
+        minorFeu.setLocation(
+                labMinorRoute.getX() + labMinorRoute.getWidth()
+                        - minorFeu.getWidth(),
+                labMinorRoute.getY() + labMinorRoute.getHeight());
+        crossing.getMinor().getTrafficLight().addObserver(minorFeu);
+
+        img = crossing.getMajor().getLightState().getIcon();
+
+        majorFeuTop = new JLightIcon();
+        majorFeuTop.setIcon(img);
+        majorFeuTop.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        add(majorFeuTop);
+        majorFeuTop.setLocation(
+                labMajorRouteTop.getX() - majorFeuTop.getWidth(),
                 labMajorRouteTop.getY() + labMajorRouteTop.getHeight()
-                        - MinorFeu.getHeight());
+                        - minorFeu.getHeight());
+        crossing.getMajor().getTrafficLight().addObserver(majorFeuTop);
 
         JLabel labIntersection = new JLabel();
         labIntersection.setIcon(intersection);
@@ -108,11 +133,14 @@ public class App extends JFrame {
                 labIntersection.getY() + labIntersection.getHeight(),
                 majorRouteDown.getIconWidth(), majorRouteDown.getIconHeight());
 
-        JLabel MajorFeuDown = crossing.getMajor().getFeu2();
-        add(MajorFeuDown);
-        MajorFeuDown.setLocation(
+        majorFeuDown = new JLightIcon();
+        majorFeuDown.setIcon(img);
+        majorFeuDown.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        add(majorFeuDown);
+        majorFeuDown.setLocation(
                 labMajorRouteDown.getX() + labMajorRouteDown.getWidth(),
                 labMajorRouteDown.getY());
+        crossing.getMajor().getTrafficLight().addObserver(majorFeuDown);
 
         crossing.start();
 
@@ -123,5 +151,16 @@ public class App extends JFrame {
         frame.setBackground(Color.BLACK);
 
     }
+
+    private class JLightIcon extends JLabel implements Observer {
+
+        private static final long serialVersionUID = 1592674537139472208L;
+
+        @Override
+        public void update(Observable o, Object arg) {
+            Icon img = ((StateLight) arg).getIcon();
+            setIcon(img);
+        }
+    };
 
 }
