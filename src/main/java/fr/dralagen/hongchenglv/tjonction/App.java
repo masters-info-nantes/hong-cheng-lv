@@ -14,6 +14,9 @@ import javax.swing.JLabel;
 
 public class App extends JFrame {
 
+    private static final String LABEL_CAR_PRESENT = "Have car present";
+    private static final String LABEL_NO_CAR_PRESENT = "No car present";
+
     public App() {
         super("Hong cheng lv");
 
@@ -32,24 +35,24 @@ public class App extends JFrame {
         setVisible(true);
         // setResizable(false);
 
-        Button startStop = new Button("Stop");
-        startStop.addActionListener(new ActionListener() {
+        Button carPresentBtn = new Button(LABEL_NO_CAR_PRESENT);
+        carPresentBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                // TODO Auto-generated method stub
-                if (startStop.getLabel().equals("Stop")) {
-                    startStop.setLabel("Start");
-                    crossing.quit();
 
+                crossing.carPresent();
+
+                if (carPresentBtn.getLabel() == LABEL_NO_CAR_PRESENT) {
+                    carPresentBtn.setLabel(LABEL_CAR_PRESENT);
                 } else {
-                    startStop.setLabel("Stop");
+                    carPresentBtn.setLabel(LABEL_NO_CAR_PRESENT);
                 }
             }
         });
 
-        add(startStop);
-        startStop.setBounds(0, 0, 100, 50);
+        add(carPresentBtn);
+        carPresentBtn.setBounds(0, 0, 250, 50);
 
         ImageIcon majorRouteTop = new ImageIcon(
                 getClass().getResource("/img/routeV.gif"));
