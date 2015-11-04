@@ -1,8 +1,5 @@
 package fr.dralagen.hongchenglv.tjonction;
 
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
-
 import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
 
 public class Tjonction extends Thread {
@@ -10,16 +7,14 @@ public class Tjonction extends Thread {
     private MinorRoad minorRoad;
     private MajorRoad majorRoad;
 
-    private final Lock lock = new ReentrantLock();
-
     private CarPresentThread tjonction;
 
     public Tjonction() {
 
         tjonction = new CarPresentThread();
 
-        majorRoad = new MajorRoad(new TrafficLight(StateLight.RED), lock);
-        minorRoad = new MinorRoad(new TrafficLight(StateLight.RED), lock);
+        majorRoad = new MajorRoad(new TrafficLight(StateLight.RED));
+        minorRoad = new MinorRoad(new TrafficLight(StateLight.RED));
 
     }
 
