@@ -10,7 +10,7 @@
 
 	<groupId>hong-cheng-lv_T-jonction</groupId>
 	<artifactId>hong-cheng-lv_T-jonction</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.1</version>
 	<name>Hong Cheng lv</name>
 	<description>Simulate a T-Jonction traffic lights</description>
 
