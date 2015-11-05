@@ -2,7 +2,7 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>// Place global declarations here.
-chan car1,car2,r1,r2;</declaration>
+chan car1,car2,r1,r2,r2c;</declaration>
 	<template>
 		<name x="5" y="5">P1</name>
 		<declaration>// Place local declarations here.</declaration>
@@ -34,67 +34,76 @@ chan car1,car2,r1,r2;</declaration>
 	</template>
 	<template>
 		<name>P2</name>
-		<location id="id3" x="34" y="34">
+		<location id="id3" x="-85" y="34">
+			<name x="-95" y="0">R2v</name>
+		</location>
+		<location id="id4" x="34" y="34">
 			<name x="24" y="0">R2p</name>
 		</location>
-		<location id="id4" x="-136" y="102">
+		<location id="id5" x="-136" y="102">
 			<name x="-146" y="68">O2</name>
 		</location>
-		<location id="id5" x="102" y="102">
+		<location id="id6" x="102" y="102">
 			<name x="92" y="68">V2</name>
 		</location>
-		<location id="id6" x="-34" y="-34">
+		<location id="id7" x="-34" y="-34">
 			<name x="-44" y="-68">R2</name>
 		</location>
-		<init ref="id6"/>
+		<init ref="id7"/>
 		<transition>
 			<source ref="id3"/>
-			<target ref="id5"/>
-			<label kind="synchronisation" x="52" y="51">r1?</label>
+			<target ref="id7"/>
+			<label kind="synchronisation" x="-59" y="0">r2c!</label>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id6"/>
-			<label kind="synchronisation" x="-85" y="25">r2!</label>
+			<label kind="synchronisation" x="52" y="51">r1?</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
-			<target ref="id4"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-102" y="51">r2!</label>
 		</transition>
 		<transition>
 			<source ref="id6"/>
-			<target ref="id3"/>
+			<target ref="id5"/>
+		</transition>
+		<transition>
+			<source ref="id7"/>
+			<target ref="id4"/>
 			<label kind="synchronisation" x="8" y="-17">car2?</label>
 		</transition>
 	</template>
 	<template>
 		<name>C</name>
 		<declaration>clock t;</declaration>
-		<location id="id7" x="-204" y="-85">
+		<location id="id8" x="-204" y="-85">
 			<label kind="invariant" x="-263" y="-93">t&lt;=0</label>
 		</location>
-		<location id="id8" x="-136" y="-34">
+		<location id="id9" x="-136" y="-34">
 			<name x="-146" y="-68">Plein</name>
 			<label kind="invariant" x="-146" y="-17">t&gt;=50</label>
 		</location>
-		<location id="id9" x="-136" y="-136">
+		<location id="id10" x="-136" y="-136">
 			<name x="-146" y="-170">Vide</name>
 		</location>
-		<init ref="id9"/>
+		<init ref="id10"/>
 		<transition>
-			<source ref="id7"/>
-			<target ref="id8"/>
+			<source ref="id8"/>
+			<target ref="id9"/>
 			<label kind="synchronisation" x="-212" y="-59">car2!</label>
 		</transition>
 		<transition>
-			<source ref="id9"/>
-			<target ref="id7"/>
+			<source ref="id10"/>
+			<target ref="id8"/>
 			<label kind="synchronisation" x="-203" y="-127">car1!</label>
 			<label kind="assignment" x="-161" y="-110">t:=0</label>
 		</transition>
 		<transition>
-			<source ref="id8"/>
-			<target ref="id9"/>
+			<source ref="id9"/>
+			<target ref="id10"/>
+			<label kind="synchronisation" x="-118" y="-76">r2c?</label>
 			<nail x="-68" y="-85"/>
 		</transition>
 	</template>
@@ -107,7 +116,7 @@ system Major,Minor,Car;
     </system>
 	<queries>
 		<query>
-			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p)
+			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p or Minor.R2v)
 			</formula>
 			<comment>
 			</comment>
