@@ -147,7 +147,7 @@ system Major, Minor, Car;
     </system>
 	<queries>
 		<query>
-			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p)
+			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p or Minor.R2c)
 			</formula>
 			<comment>
 			</comment>
