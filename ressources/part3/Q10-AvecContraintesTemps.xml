@@ -34,29 +34,29 @@ clock t1;</declaration>
 		<transition>
 			<source ref="id3"/>
 			<target ref="id1"/>
-			<label kind="synchronisation" x="-85" y="8">car1?</label>
-			<label kind="assignment" x="-84" y="34">t1:=0</label>
+			<label kind="synchronisation" x="-83" y="13">car1?</label>
+			<label kind="assignment" x="-86" y="34">t1:=0</label>
 		</transition>
 		<transition>
 			<source ref="id2"/>
 			<target ref="id4"/>
-			<label kind="guard" x="-236" y="-67">t1==5</label>
-			<label kind="synchronisation" x="-234" y="-51">r1!</label>
+			<label kind="guard" x="-238" y="-68">t1==5</label>
+			<label kind="synchronisation" x="-238" y="-51">r1!</label>
 			<label kind="assignment" x="-238" y="-34">t1:=0</label>
 		</transition>
 		<transition>
 			<source ref="id1"/>
 			<target ref="id2"/>
 			<label kind="guard" x="-212" y="40">t1&gt;=30</label>
-			<label kind="assignment" x="-210" y="62">t1:=0</label>
+			<label kind="assignment" x="-210" y="59">t1:=0</label>
 			<nail x="-144" y="34"/>
 		</transition>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id0"/>
-			<label kind="guard" x="-93" y="-110">t1&gt;=35</label>
-			<label kind="synchronisation" x="-76" y="-93">r2?</label>
-			<label kind="assignment" x="-51" y="-85">t1:=0</label>
+			<label kind="guard" x="-86" y="-112">t1&gt;=35</label>
+			<label kind="synchronisation" x="-85" y="-94">r2?</label>
+			<label kind="assignment" x="-57" y="-94">t1:=0</label>
 		</transition>
 	</template>
 	<template>

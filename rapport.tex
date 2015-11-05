@@ -21,7 +21,7 @@
 \lstset{style=customstyle}	
 
 \title{Projet Système de feux tricolores}
-\author{Adrien Garandel \and Bao Ran \and Franck Boncler \and Jérémy Bardon}
+\author{Adrien Garandel \and Ran Bao \and Franck Boncler \and Jérémy Bardon}
 
 \begin{document}
 
@@ -90,14 +90,14 @@ Vérification des propriétés de sureté de vivacité du système de feux synch
 AG[0, inf](M(R1) + M(R2) >= 1)	
 \end{verbatim}
 
-	\item Un feu passe au moins une fois au vert (non bloqué)
+	\item Le deuxième feu passe au moins une fois au vert (non bloqué)
 \begin{verbatim}
 AG[0, inf](M(V2) = 1)	
 \end{verbatim}
 
 	\item Les feux ne se bloquent pas entre eux
 \begin{verbatim}
-AG[0, inf](M(R1) + M(P7)) # P7 = place intermédiaire	
+AG[0, inf](M(R1) + M(P7) = 2) # P7 = place intermédiaire	
 \end{verbatim}
 \end{itemize}
 
@@ -208,8 +208,6 @@ Comme dans le premier cas, il y a une route principale avec deux feux tricolores
 
 Dans cette première version de notre système de feux, il n'y a pas de contraintes de temps.
 
-% expliquer r2c
-
 \begin{itemize}
 	\item Les 2 feux de la grande route sont considérés comme un seul
 	\item Processus qui régule l'arrivée des voitures dans la petite rue
@@ -221,8 +219,7 @@ Dans cette première version de notre système de feux, il n'y a pas de contrain
 	\caption{Automate du feu de la route majeure}
 \end{figure}
 
-Le feu de la route principale passe du Vert au Orange puis au Rouge lorsqu'un véhicule arrive sur la route mineure. Il attend alors qu'il n'y ai plus de voiture sur la route mineure pour repasser au Vert.
-
+Le feu de la route principale passe du Vert au Orange puis au Rouge lorsqu'un véhicule arrive sur la route mineure. Il attend que le feu de la route mineure soit Rouge et il indique qu'il n'y a plus de voiture sur la route mineure.
 \begin{figure}[H]
 	\centering
 	\includegraphics{ressources/part3/Q9-2.png}
@@ -237,7 +234,7 @@ Par défaut Rouge, le feu de la route mineure passe au Vert si une voiture est c
 	\caption{Automate de l'arrivée des véhicules sur la route mineure (capteur)}
 \end{figure}
 
-Cet automate régule l'arrivée de voiture sur la route mineure. Il détecte alors une voiture toutes les 50 tocs d'horloges. Le signal \emph{r2c} permet de d'assurer que la voiture détectée sur la route mineure soit bien passée avant que le feu repasse au Vert.
+Cet automate régule l'arrivée de voiture sur la route mineure. Le signal \emph{r1c} permet de d'assurer que la voiture détectée sur la route mineure soit bien passée pendant que le feu est vert.
 
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 10}
@@ -248,7 +245,6 @@ A notre système de feux sur un carrefour en T, nous ajoutons ici des contrainte
 \begin{itemize}
 	\item Petite rue verte 30 secondes
 	\item Dans un cycle, la grande route est Verte au moins 30 secondes
-	\item Délai de 1 seconde entre chaque changement de couleur
 	\item Chaque feu reste orange pendant 5 secondes
 \end{itemize}
 
@@ -262,7 +258,7 @@ Les signaux \emph{r1} et \emph{r2} permettent d'obliger qu'un des feux soit roug
 
 La grande route attend qu'une voiture arrive sur la petite route pour passer à l'Orange une fois qu'il a été au moins 30 secondes Vert depuis le début.
 
-Avant de repasser au Vert une fois Rouge, le feu de la route majeure attend que celui de la route mineure soit passé au Rouge.
+Avant de repasser au Vert, le feu de la route majeure attend que celui de la route mineure soit passé au Rouge.
 
 \begin{figure}[H]
 	\centering
@@ -278,6 +274,8 @@ Pour passer au vert, le feu de la route mineure doit attendre de capter une voit
 	\caption{Automate de l'arrivée des véhicules sur la route mineure (capteur)}
 \end{figure}
 
+Les signaux \emph{car1} et \emph{car2} permettent d'indiquer au feu mineur et au feu majeur qu'une voiture est arrivée sur la route mineure. Le feu de la route majeur notifie l'automate pour indiquer que la voiture est passée.
+
 %%%%%%%%%%%%%%%%%%%%%%%
 \subsection{Question 11}
 %%%%%%%%%%%%%%%%%%%%%%%
@@ -289,15 +287,15 @@ Pour passer au vert, le feu de la route mineure doit attendre de capter une voit
 \begin{itemize}
 	\item Toujours au moins un feu rouge
 \begin{verbatim}
-A[](Major.R1 or Minor.R2 or Minor.R2p or Minor.R2v)
+A[](Major.R1 or Major.R1c or Minor.R2 or Minor.R2p)
 \end{verbatim}
 	
-	\item Lorsque le feu de la petite route passe au vert, la voiture qui attend passe
+	\item Lorsque le feu de la petite route passe au vert, il n'y a pas de voiture sur la petite route
 \begin{verbatim}
 E<>(Car.Vide and Minor.V2)
 \end{verbatim}
 	
-	\item Les deux feux atteignent leur état le plus éloigné, ils ne sont pas bloqués par le temps
+	\item Les deux feux atteignent leur état le plus éloigné, ils ne sont pas bloqués
 \begin{verbatim}
 E<>(Major.R1 and Minor.O2)
 \end{verbatim}
@@ -316,7 +314,12 @@ E<> deadlock
 \begin{itemize}
 	\item Toujours au moins un feu rouge
 \begin{verbatim}
-A[](Major.R1 or Minor.R2 or Minor.R2p or Minor.R2c)
+A[](Major.R1 or Major.R1c or Minor.R2 or Minor.R2p)
+\end{verbatim}
+
+	\item Lorsque le feu de la petite route passe au vert, il n'y a pas de voiture sur la petite route
+\begin{verbatim}
+E<>(Car.Vide and Minor.V2)
 \end{verbatim}
 
 	\item Les deux feux atteignent leur état le plus éloigné, ils ne sont pas bloqués par le temps
