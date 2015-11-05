@@ -2,61 +2,66 @@
 <!DOCTYPE nta PUBLIC '-//Uppaal Team//DTD Flat System 1.1//EN' 'http://www.it.uu.se/research/group/darts/uppaal/flat-1_2.dtd'>
 <nta>
 	<declaration>// Place global declarations here.
-chan car1,car2,r1,r2,r2c;</declaration>
+chan car1,car2,r1,r2,r1c;</declaration>
 	<template>
 		<name x="5" y="5">P1</name>
 		<declaration>// Place local declarations here.
 clock t1;</declaration>
-		<location id="id0" x="-127" y="34">
+		<location id="id0" x="-59" y="-34">
+			<name x="-69" y="-68">R1c</name>
+		</location>
+		<location id="id1" x="-127" y="34">
 			<name x="-137" y="0">V1p</name>
 			<label kind="invariant" x="-151" y="58">t1&lt;=30</label>
 		</location>
-		<location id="id1" x="-246" y="34">
+		<location id="id2" x="-246" y="34">
 			<name x="-256" y="0">O1</name>
 			<label kind="invariant" x="-314" y="26">t1&lt;=5</label>
 		</location>
-		<location id="id2" x="0" y="34">
+		<location id="id3" x="0" y="34">
 			<name x="-10" y="0">V1</name>
 		</location>
-		<location id="id3" x="-119" y="-102">
+		<location id="id4" x="-119" y="-102">
 			<name x="-129" y="-136">R1</name>
 			<label kind="invariant" x="-153" y="-161">t1&lt;=35</label>
 		</location>
-		<init ref="id2"/>
+		<init ref="id3"/>
 		<transition>
-			<source ref="id2"/>
-			<target ref="id0"/>
+			<source ref="id0"/>
+			<target ref="id3"/>
+			<label kind="synchronisation" x="-34" y="-25">r1c!</label>
+		</transition>
+		<transition>
+			<source ref="id3"/>
+			<target ref="id1"/>
 			<label kind="synchronisation" x="-85" y="8">car1?</label>
 			<label kind="assignment" x="-84" y="34">t1:=0</label>
 		</transition>
 		<transition>
-			<source ref="id1"/>
-			<target ref="id3"/>
+			<source ref="id2"/>
+			<target ref="id4"/>
 			<label kind="guard" x="-236" y="-67">t1==5</label>
 			<label kind="synchronisation" x="-234" y="-51">r1!</label>
 			<label kind="assignment" x="-238" y="-34">t1:=0</label>
 		</transition>
 		<transition>
-			<source ref="id0"/>
-			<target ref="id1"/>
+			<source ref="id1"/>
+			<target ref="id2"/>
 			<label kind="guard" x="-212" y="40">t1&gt;=30</label>
 			<label kind="assignment" x="-210" y="62">t1:=0</label>
 			<nail x="-144" y="34"/>
 		</transition>
 		<transition>
-			<source ref="id3"/>
-			<target ref="id2"/>
-			<label kind="guard" x="-52" y="-71">t1&gt;=35</label>
-			<label kind="synchronisation" x="-51" y="-56">r2?</label>
-			<label kind="assignment" x="-50" y="-40">t1:=0</label>
+			<source ref="id4"/>
+			<target ref="id0"/>
+			<label kind="guard" x="-93" y="-110">t1&gt;=35</label>
+			<label kind="synchronisation" x="-76" y="-93">r2?</label>
+			<label kind="assignment" x="-51" y="-85">t1:=0</label>
 		</transition>
 	</template>
 	<template>
 		<name>P2</name>
 		<declaration>clock t2;</declaration>
-		<location id="id4" x="-85" y="34">
-			<name x="-95" y="0">R2c</name>
-		</location>
 		<location id="id5" x="34" y="34">
 			<name x="24" y="0">R2p</name>
 			<label kind="invariant" x="51" y="15">t2&lt;=35</label>
@@ -74,11 +79,6 @@ clock t1;</declaration>
 		</location>
 		<init ref="id8"/>
 		<transition>
-			<source ref="id4"/>
-			<target ref="id8"/>
-			<label kind="synchronisation" x="-90" y="-26">r2c!</label>
-		</transition>
-		<transition>
 			<source ref="id5"/>
 			<target ref="id7"/>
 			<label kind="guard" x="68" y="34">t2&gt;=35</label>
@@ -87,9 +87,10 @@ clock t1;</declaration>
 		</transition>
 		<transition>
 			<source ref="id6"/>
-			<target ref="id4"/>
+			<target ref="id8"/>
 			<label kind="guard" x="-153" y="42">t2==5</label>
 			<label kind="synchronisation" x="-153" y="27">r2!</label>
+			<nail x="-51" y="-8"/>
 		</transition>
 		<transition>
 			<source ref="id7"/>
@@ -112,7 +113,6 @@ clock t1;</declaration>
 		</location>
 		<location id="id10" x="-136" y="-34">
 			<name x="-146" y="-68">Plein</name>
-			<label kind="invariant" x="-146" y="-17">t3&lt;=50</label>
 		</location>
 		<location id="id11" x="-136" y="-136">
 			<name x="-146" y="-170">Vide</name>
@@ -133,7 +133,7 @@ clock t1;</declaration>
 			<source ref="id10"/>
 			<target ref="id11"/>
 			<label kind="guard" x="-87" y="-133">t3&gt;=40</label>
-			<label kind="synchronisation" x="-87" y="-151">r2c?</label>
+			<label kind="synchronisation" x="-87" y="-151">r1c?</label>
 			<label kind="assignment" x="-84" y="-116">t3:=0</label>
 			<nail x="-68" y="-85"/>
 		</transition>
@@ -147,13 +147,19 @@ system Major, Minor, Car;
     </system>
 	<queries>
 		<query>
-			<formula>A[](Major.R1 or Minor.R2 or Minor.R2p or Minor.R2c)
+			<formula>A[](Major.R1 or Major.R1c or Minor.R2 or Minor.R2p)
 			</formula>
 			<comment>
 			</comment>
 		</query>
 		<query>
 			<formula>E&lt;&gt;deadlock
+			</formula>
+			<comment>
+			</comment>
+		</query>
+		<query>
+			<formula>E&lt;&gt;(Car.Vide and Minor.V2)
 			</formula>
 			<comment>
 			</comment>
