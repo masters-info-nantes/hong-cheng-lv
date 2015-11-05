@@ -113,7 +113,7 @@ system feu1,feu2;
 			</comment>
 		</query>
 		<query>
-			<formula>E&lt;&gt;(feu1.V1 and feu2.V2)
+			<formula>E&lt;&gt;(feu1.R1 and feu2.Q2)
 			</formula>
 			<comment>
 			</comment>
