@@ -1,35 +1,30 @@
 package fr.dralagen.hongchenglv.tjonction;
 
+import java.net.URL;
 import java.util.Observable;
-
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 
 public class TrafficLight extends Observable {
 
     public static enum StateLight {
         GREEN {
             @Override
-            public Icon getIcon() {
-                return new ImageIcon(
-                        getClass().getResource("/img/feux-feuvert.gif"));
+            public URL getIcon() {
+                return getClass().getResource("/img/feux-feuvert.gif");
             }
         },
         YELLOW {
             @Override
-            public Icon getIcon() {
-                return new ImageIcon(
-                        getClass().getResource("/img/feux-feuorange.gif"));
+            public URL getIcon() {
+                return getClass().getResource("/img/feux-feuorange.gif");
             }
         },
         RED {
             @Override
-            public Icon getIcon() {
-                return new ImageIcon(
-                        getClass().getResource("/img/feux-feurouge.gif"));
+            public URL getIcon() {
+                return getClass().getResource("/img/feux-feurouge.gif");
             }
         };
-        public abstract Icon getIcon();
+        public abstract URL getIcon();
     }
 
     private StateLight state;
@@ -49,7 +44,7 @@ public class TrafficLight extends Observable {
         notifyObservers(state);
     }
 
-    public Icon getIcon() {
+    public URL getIcon() {
         return state.getIcon();
     }
 

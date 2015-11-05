@@ -2,14 +2,20 @@ package fr.dralagen.hongchenglv.tjonction;
 
 import java.awt.Button;
 import java.awt.Color;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+import java.net.URL;
 import java.util.Observable;
 import java.util.Observer;
 
+import javax.imageio.ImageIO;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -94,11 +100,20 @@ public class App extends JFrame {
         labMinorRoute.setBounds(0, labMajorRouteTop.getHeight(),
                 minorRoute.getIconWidth(), minorRoute.getIconHeight());
 
-        Icon img = crossing.getMinor().getLightState().getIcon();
-
-        minorFeu = new JLightIcon();
-        minorFeu.setIcon(img);
-        minorFeu.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        Icon img = new ImageIcon(crossing.getMinor().getLightState().getIcon());
+        minorFeu = new JLightIcon() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (iconURL == null) {
+                    super.paintComponent(g);
+                }
+                super.paintComponent(rotateImage((Graphics2D) g, 90,
+                        -getWidth() / 3, -getHeight() / 3));
+            }
+        };
+        minorFeu.setIcon(crossing.getMinor().getLightState().getIcon());
+        minorFeu.setBounds(0, 0, minorFeu.getIcon().getIconHeight(),
+                minorFeu.getIcon().getIconHeight());
         add(minorFeu);
         minorFeu.setLocation(
                 labMinorRoute.getX() + labMinorRoute.getWidth()
@@ -106,16 +121,23 @@ public class App extends JFrame {
                 labMinorRoute.getY() + labMinorRoute.getHeight());
         crossing.getMinor().getTrafficLight().addObserver(minorFeu);
 
-        img = crossing.getMajor().getLightState().getIcon();
-
-        majorFeuTop = new JLightIcon();
-        majorFeuTop.setIcon(img);
-        majorFeuTop.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        majorFeuTop = new JLightIcon() {
+            @Override
+            protected void paintComponent(Graphics g) {
+                if (iconURL == null) {
+                    super.paintComponent(g);
+                }
+                super.paintComponent(rotateImage((Graphics2D) g, 180, 0, 0));
+            }
+        };
+        majorFeuTop.setIcon(crossing.getMajor().getLightState().getIcon());
+        majorFeuTop.setBounds(0, 0, majorFeuTop.getIcon().getIconWidth(),
+                majorFeuTop.getIcon().getIconHeight());
         add(majorFeuTop);
         majorFeuTop.setLocation(
                 labMajorRouteTop.getX() - majorFeuTop.getWidth(),
                 labMajorRouteTop.getY() + labMajorRouteTop.getHeight()
-                        - minorFeu.getHeight());
+                        - majorFeuTop.getHeight() - 5);
         crossing.getMajor().getTrafficLight().addObserver(majorFeuTop);
 
         JLabel labIntersection = new JLabel();
@@ -134,12 +156,13 @@ public class App extends JFrame {
                 majorRouteDown.getIconWidth(), majorRouteDown.getIconHeight());
 
         majorFeuDown = new JLightIcon();
-        majorFeuDown.setIcon(img);
-        majorFeuDown.setBounds(0, 0, img.getIconWidth(), img.getIconHeight());
+        majorFeuDown.setIcon(crossing.getMajor().getLightState().getIcon());
+        majorFeuDown.setBounds(0, 0, majorFeuDown.getIcon().getIconWidth(),
+                majorFeuDown.getIcon().getIconHeight());
         add(majorFeuDown);
         majorFeuDown.setLocation(
                 labMajorRouteDown.getX() + labMajorRouteDown.getWidth(),
-                labMajorRouteDown.getY());
+                labMajorRouteDown.getY() + 5);
         crossing.getMajor().getTrafficLight().addObserver(majorFeuDown);
 
         crossing.start();
@@ -156,10 +179,33 @@ public class App extends JFrame {
 
         private static final long serialVersionUID = 1592674537139472208L;
 
+        protected URL iconURL;
+
         @Override
         public void update(Observable o, Object arg) {
-            Icon img = ((StateLight) arg).getIcon();
-            setIcon(img);
+            setIcon(((StateLight) arg).getIcon());
+        }
+
+        public Graphics2D rotateImage(Graphics2D g, int rotate, int tx,
+                int ty) {
+            BufferedImage bi;
+            try {
+                bi = ImageIO.read(iconURL);
+            } catch (IOException e) {
+                return null;
+            }
+            g.rotate(Math.toRadians(rotate), bi.getWidth() / 2,
+                    bi.getHeight() / 2);
+            g.translate(tx, ty);
+            g.drawImage(bi, 0, 0, null);
+
+            g.dispose();
+            return g;
+        }
+
+        public void setIcon(URL url) {
+            iconURL = url;
+            setIcon(new ImageIcon(url));
         }
     };
 
