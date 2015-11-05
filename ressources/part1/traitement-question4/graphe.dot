@@ -1,6 +1,6 @@
 digraph automaton {
 node [shape = circle];
-rankdir=TD;
+rankdir=LR;
 C0 -> C1 [label="VO"];
 C1 -> C2 [label="OR"];
 C2 -> C3 [label="RV1"];

@@ -58,12 +58,12 @@ chan car1,car2,r1,r2,r1c;</declaration>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id6"/>
-			<label kind="synchronisation" x="52" y="51">r1?</label>
+			<label kind="synchronisation" x="64" y="39">r1?</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
 			<target ref="id7"/>
-			<label kind="synchronisation" x="-76" y="25">r2!</label>
+			<label kind="synchronisation" x="-106" y="10">r2!</label>
 		</transition>
 		<transition>
 			<source ref="id6"/>
@@ -72,7 +72,7 @@ chan car1,car2,r1,r2,r1c;</declaration>
 		<transition>
 			<source ref="id7"/>
 			<target ref="id4"/>
-			<label kind="synchronisation" x="8" y="-17">car2?</label>
+			<label kind="synchronisation" x="-4" y="-28">car2?</label>
 		</transition>
 	</template>
 	<template>
