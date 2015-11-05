@@ -124,6 +124,7 @@ La partie précédente expose un système de feux synchronisés mais non tempori
 
 Pour les deux feux, il est nécessaire d'ajouter une place initiale pour indiquer l'état initial de chacun des feux. Ce premier état attend 1 seconde car sinon les automates on observerait une désynchronisation des feux.
 
+% démarrage différé
 Validation des propriétés de sureté de vivacité du système de feux temporises.
 
 \textbf{A n'importe quel moment il n'y a pas deux feux rouges en même temps}
@@ -171,10 +172,10 @@ Vérification des propriétés de sureté de vivacité du système de feux synch
 A[](feu1.R1 or feu2.R2)
 \end{verbatim}
 
-\textbf{?????????}
-\begin{verbatim}
-E<>(feu1.R1 and feu2.O2)
-\end{verbatim}
+%\textbf{}
+%\begin{verbatim}
+%E<>(feu1.R1 and feu2.O2)
+%\end{verbatim}
 
 \textbf{Pas de deadlock}
 \begin{verbatim}
@@ -224,10 +225,19 @@ Par défaut Rouge, le feu de la route mineure passe au Vert si une voiture est c
 Cet automate régule l'arrivée de voiture sur la route mineure. Il détecte alors une voiture toutes les 50 tocs d'horloges.
 
 %%%%%%%%%%%%%%%%%%%%%%%
-\subsection{Question 10}\label{question-10}
+\subsection{Question 10}
 %%%%%%%%%%%%%%%%%%%%%%%
 
 A notre système de feux sur un carrefour en T, nous ajoutons ici des contraintes de temps notamment sur le temps pendant lequel chaque feu doit rester Vert.
+
+% grande route attend une voiture arrive petite route
+% signal p envoyé quand t < 30
+% attend r2
+
+% r1 & r2 changer d'état que si un des feux est rouge
+
+% petite route attend voiture + grande route  au rouge
+% voiture peut passer quand la petite route est rouge -> au moins une voiture de passée
 
 \begin{itemize}
 	\item Petite rue verte 30 secondes
