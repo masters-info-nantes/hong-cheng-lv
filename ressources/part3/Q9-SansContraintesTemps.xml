@@ -97,13 +97,13 @@ chan car1,car2,r1,r2,r2c;</declaration>
 		<transition>
 			<source ref="id10"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-203" y="-127">car1!</label>
-			<label kind="assignment" x="-161" y="-110">t:=0</label>
+			<label kind="synchronisation" x="-202" y="-144">car1!</label>
+			<label kind="assignment" x="-203" y="-126">t:=0</label>
 		</transition>
 		<transition>
 			<source ref="id9"/>
 			<target ref="id10"/>
-			<label kind="synchronisation" x="-118" y="-76">r2c?</label>
+			<label kind="synchronisation" x="-80" y="-118">r2c?</label>
 			<nail x="-68" y="-85"/>
 		</transition>
 	</template>
