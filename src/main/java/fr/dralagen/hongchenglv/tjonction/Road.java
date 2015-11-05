@@ -19,8 +19,9 @@ public class Road extends Thread {
     public void toStop() {
         trafficLight.setState(StateLight.YELLOW);
 
+        // delay of interim lights
         try {
-            Thread.sleep(1000);
+            Thread.sleep(Tjonction.INTERIM_LIGHTS_DELAY); // 5 seconds
         } catch (InterruptedException e) {
         }
 

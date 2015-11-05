@@ -4,6 +4,10 @@ import fr.dralagen.hongchenglv.tjonction.TrafficLight.StateLight;
 
 public class Tjonction extends Thread {
 
+    public static final int MINOR_ROAD_GREEN_DELAY = 30000; // 30 Seconds
+    public static final int MAJOR_ROAD_GREEN_DELAY = 30000; // 30 Seconds
+    public static final int INTERIM_LIGHTS_DELAY = 5000; // 5 Seconds
+
     private Road minorRoad;
     private Road majorRoad;
 
@@ -74,8 +78,9 @@ public class Tjonction extends Thread {
                     majorRoad.toStop();
                     minorRoad.notifyAll();
                 }
+                // Delay of minor-road stays on green
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(MINOR_ROAD_GREEN_DELAY); // 30 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -84,9 +89,9 @@ public class Tjonction extends Thread {
                     majorRoad.notifyAll();
                 }
 
-                // wait majorRoad to state Green
+                // delay of major-road stays on green
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(MAJOR_ROAD_GREEN_DELAY); // 30 seconds
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
