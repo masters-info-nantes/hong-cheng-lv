@@ -55,6 +55,7 @@ clock t1;</declaration>
 		<name>P2</name>
 		<declaration>clock t2;</declaration>
 		<location id="id4" x="-85" y="34">
+			<name x="-95" y="0">R2c</name>
 		</location>
 		<location id="id5" x="34" y="34">
 			<name x="24" y="0">R2p</name>
@@ -75,7 +76,7 @@ clock t1;</declaration>
 		<transition>
 			<source ref="id4"/>
 			<target ref="id8"/>
-			<label kind="synchronisation" x="-59" y="-17">r2c!</label>
+			<label kind="synchronisation" x="-51" y="-8">r2c!</label>
 		</transition>
 		<transition>
 			<source ref="id5"/>
@@ -87,7 +88,7 @@ clock t1;</declaration>
 		<transition>
 			<source ref="id6"/>
 			<target ref="id4"/>
-			<label kind="guard" x="-118" y="0">t2==5</label>
+			<label kind="guard" x="-153" y="42">t2==5</label>
 			<label kind="synchronisation" x="-102" y="68">r2!</label>
 		</transition>
 		<transition>
