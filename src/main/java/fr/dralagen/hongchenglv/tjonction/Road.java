@@ -17,26 +17,30 @@ public class Road extends Thread {
     }
 
     public void toStop() {
-        trafficLight.setState(StateLight.YELLOW);
+        if (trafficLight.getState() == StateLight.GREEN) {
+            trafficLight.setState(StateLight.YELLOW);
 
-        // delay of interim lights
-        try {
-            Thread.sleep(Tjonction.INTERIM_LIGHTS_DELAY); // 5 seconds
-        } catch (InterruptedException e) {
-        }
+            // delay of interim lights
+            try {
+                Thread.sleep(Tjonction.INTERIM_LIGHTS_DELAY); // 5 seconds
+            } catch (InterruptedException e) {
+            }
 
-        trafficLight.setState(StateLight.RED);
+            trafficLight.setState(StateLight.RED);
 
-        try {
-            Thread.sleep(500);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
+            try {
+                Thread.sleep(500);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
     }
 
     public synchronized void toOpen() {
 
-        trafficLight.setState(StateLight.GREEN);
+        if (trafficLight.getState() == StateLight.RED) {
+            trafficLight.setState(StateLight.GREEN);
+        }
 
     }
 
