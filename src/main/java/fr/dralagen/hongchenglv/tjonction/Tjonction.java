@@ -13,12 +13,18 @@ public class Tjonction extends Thread {
 
     private CarPresentThread tjonction;
 
+    private boolean isCar;
+
     public Tjonction() {
 
         tjonction = new CarPresentThread();
 
         majorRoad = new Road(new TrafficLight(StateLight.RED));
         minorRoad = new Road(new TrafficLight(StateLight.RED));
+
+        isCar = false;
+
+        tjonction.start();
 
     }
 
@@ -55,20 +61,21 @@ public class Tjonction extends Thread {
         majorRoad.switchOff();
     }
 
-    public synchronized void carPresent() {
+    public synchronized void toggleCarPresent() {
+
+        tjonction.toggleCarPresent();
 
         if (!tjonction.isAlive()) {
             tjonction = new CarPresentThread();
             tjonction.start();
-
-        } else {
-            tjonction.toggleCarPresent();
         }
     }
 
-    private class CarPresentThread extends Thread {
+    public boolean isCarPresent() {
+        return isCar;
+    }
 
-        private boolean isCar = true;
+    private class CarPresentThread extends Thread {
 
         @Override
         public void run() {

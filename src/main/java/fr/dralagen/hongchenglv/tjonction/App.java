@@ -16,7 +16,6 @@ import java.util.Observable;
 import java.util.Observer;
 
 import javax.imageio.ImageIO;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -56,15 +55,16 @@ public class App extends JFrame {
         setVisible(true);
         // setResizable(false);
 
-        Button carPresentBtn = new Button(LABEL_NO_CAR_PRESENT);
+        Button carPresentBtn = new Button((crossing.isCarPresent())
+                ? LABEL_CAR_PRESENT : LABEL_NO_CAR_PRESENT);
         carPresentBtn.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                crossing.carPresent();
+                crossing.toggleCarPresent();
 
-                if (carPresentBtn.getLabel() == LABEL_NO_CAR_PRESENT) {
+                if (crossing.isCarPresent()) {
                     carPresentBtn.setLabel(LABEL_CAR_PRESENT);
                 } else {
                     carPresentBtn.setLabel(LABEL_NO_CAR_PRESENT);
@@ -100,8 +100,9 @@ public class App extends JFrame {
         labMinorRoute.setBounds(0, labMajorRouteTop.getHeight(),
                 minorRoute.getIconWidth(), minorRoute.getIconHeight());
 
-        Icon img = new ImageIcon(crossing.getMinor().getLightState().getIcon());
         minorFeu = new JLightIcon() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void paintComponent(Graphics g) {
                 if (iconURL == null) {
@@ -122,6 +123,8 @@ public class App extends JFrame {
         crossing.getMinor().getTrafficLight().addObserver(minorFeu);
 
         majorFeuTop = new JLightIcon() {
+            private static final long serialVersionUID = 1L;
+
             @Override
             protected void paintComponent(Graphics g) {
                 if (iconURL == null) {
